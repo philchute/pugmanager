@@ -3,9 +3,9 @@
 #include <amxmodx>
 #include <amxmisc>
 
-#define PLUGIN "New Plug-In"
-#define VERSION "1.0"
-#define AUTHOR "author"
+//#define PLUGIN "New Plug-In"
+//#define VERSION "1.0"
+//#define AUTHOR "author"
 
 
 #pragma semicolon 1
@@ -22,16 +22,16 @@ public plugin_init()
     if(equal(currentMap, "ass_dm")){
 	server_cmd("currentRound 0");
     }
-    register_plugin("New Plug-In", "1.0", "mrsou");
+    //register_plugin("New Plug-In", "1.0", "mrsou");
     server_cmd("mp_chattime 5");
     register_clcmd("say", "startGame");
     register_cvar("currentRound", "0");
     new region[64];
     get_cvar_string("region", region, 63);
     register_cvar("region", region);
-    new discordlink[64];
-    get_cvar_string("discordlink", discordlink, 63);
-    register_cvar("discordlink", "TFPugs");
+    //new discordlink[64];
+    //get_cvar_string("discordlink", discordlink, 63);
+    //register_cvar("discordlink", "TFPugs");
     register_cvar("round1Score", "0");
     register_event("TeamScore", "get_teamscore", "a", "");
     register_cvar("team1score", "0");
@@ -41,14 +41,15 @@ public plugin_init()
         new mapname[32];
         get_mapname(mapname, 31);
         server_cmd("amx_nextmap %s", mapname);
-	server_cmd("hostname \"TFPugs discord.gg/%s %s R1\"", discordlink, region);
-    }
+	    //server_cmd("hostname \"TFPugs discord.gg/%s %s R1\"", discordlink, region);
+	    server_cmd("hostname \"tfpugs.com %s pickup server R1\"", region);
+    }   
     else if (cRound == 0){
-	server_cmd("hostname \"TFPugs discord.gg/%s %s\"", discordlink, region);
+	    //server_cmd("hostname \"TFPugs discord.gg/%s %s\"", discordlink, region);
+	    server_cmd("hostname \"tfpugs.com %s pickup server\"", region);
     }
     return 0;
 }
-        
 
 public startGame(id)
 {
@@ -64,7 +65,6 @@ public startGame(id)
     parse(buffer, buffer1, 32, buffer2, 32);
     if (equali(buffer1, "!rs", 0))
     {
-        
         if (equal(buffer2, "", 0))
         {
 	   
@@ -76,9 +76,10 @@ public startGame(id)
                 server_cmd("changelevel %s", nextmap);
                 new region[64];
                 get_cvar_string("region", region, 63);
-		  new discordlink[64];
-                get_cvar_string("discordlink", discordlink, 63);
-                server_cmd("hostname \"TFPugs discord.gg/%s %s R1\"", discordlink, region);
+		        //new discordlink[64];
+                //get_cvar_string("discordlink", discordlink, 63);
+                //server_cmd("hostname \"TFPugs discord.gg/%s %s R1\"", discordlink, region);
+                server_cmd("hostname \"tfpugs.com %s pickup server R1\"", region);
                 rsRound = 1;
                 return 0;
             }
@@ -99,9 +100,10 @@ public startGame(id)
             server_cmd("changelevel %s", buffer2);
             new region[64];
             get_cvar_string("region", region, 63);
-	   new discordlink[64];
-            get_cvar_string("discordlink", discordlink, 63);
-            server_cmd("hostname \"TFPugs discord.gg/%s %s R1\"", discordlink, region);
+	        //new discordlink[64];
+            //get_cvar_string("discordlink", discordlink, 63);
+            //server_cmd("hostname \"TFPugs discord.gg/%s %s R1\"", discordlink, region);
+            server_cmd("hostname \"tfpugs.com %s pickup server R1\"", region);
             rsRound = 1;
             return 0;
         }
@@ -117,7 +119,7 @@ public startGame(id)
     if (equali(buffer1, "!map", 0))
     {
     	server_cmd("changelevel %s", buffer2);
-}
+    }
     return 0;
 }
 
@@ -132,12 +134,13 @@ public plugin_end()
         get_cvar_string("hostname", hostname, 63);
         new region[64];
         get_cvar_string("region", region, 63);
-        new discordlink[64];
-        get_cvar_string("discordlink", discordlink, 63);
+        //new discordlink[64];
+        //get_cvar_string("discordlink", discordlink, 63);
         new cRound = get_cvar_num("currentRound");
         if (cRound == 1)
         {
-            server_cmd("hostname \"TFPugs discord.gg/%s %s R2 - %s\"", discordlink, region, score);
+            //server_cmd("hostname \"TFPugs discord.gg/%s %s R2 - %s\"", discordlink, region, score);
+            server_cmd("hostname \"tfpugs.com %s pickup server R2 - %s\"", region, score);
             server_cmd("currentRound 2");
             server_cmd("round1Score %s", score);
         }
@@ -157,7 +160,8 @@ public plugin_end()
 			log_message("[MATCH RESULT] DRAW at (%d) %s", t1Score, region);
 		}
 		log_message("[GAMEND] RECORDING STATS]");
-		server_cmd("hostname \"TFPugs discord.gg/%s %s\"", discordlink, region);
+		//server_cmd("hostname \"TFPugs discord.gg/%s %s\"", discordlink, region);
+		server_cmd("hostname \"tfpugs.com %s pickup server\"", region);
 		server_cmd("currentRound 0");
 		server_cmd("round1Score 0");
 	     
